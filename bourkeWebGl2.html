@@ -97,13 +97,11 @@ function loadFile()
 		 __BGL.alphas = __BMESH.alphaTriangles;
 		 __BGL.webGLStart();
 		 bindKeysAndMouse();
-		 
-
 	}
 	//open file
 	__BGL = new glTemplate();
 	__BGL.textureImageName="images/panda2.jpg";
-	$.get('maps/warpcrap5.data', loadedFile );	
+	$.get('maps/waspidome.data', loadedFile );	
 	
 	can3d = document.getElementById('canvas3d');
 	//can3d.style
@@ -127,7 +125,29 @@ function attachVideo( pathStr)
 {
 	__BGL.attachVideo( pathStr);
 }
+function changeMaps( pathStr)
+{
+	console.log("map changed tp " + pathStr);
+	function loadedFile( data)
+	{
+		//this function is called when file is loaded
+		 __BMESH = new parseMap( data);
+		  
+		 __BGL.vertices = __BMESH.xyTriangles;
+		 __BGL.textureCoords = __BMESH.uvTriangles;
+		 __BGL.alphas = __BMESH.alphaTriangles;
+		__BGL.initBuffers();	 
+		__BGL.setUniforms();
+		__BGL.postRedisplay();
+		 //__BGL.webGLStart();
+		 //bindKeysAndMouse();
+	}
+	//open file
+	//__BGL = new glTemplate();
+	__BGL.textureImageName="images/panda2.jpg";
+	$.get(pathStr, loadedFile );	
 
+}
 
 </script>
 
@@ -140,6 +160,11 @@ function attachVideo( pathStr)
 <a href="javascript:attachVideo('images/BrotherCanYouSpareAJob.ogv')" style="background-color:black;">attach political cartoon video</a>
 <br>
 <a href="javascript:attachCanvasTest()">attach canvas test</a>
+<br>     
+<a href="javascript:changeMaps('maps/xyuv.txt')" >change maps to maps/xyuv.txt</a>
+<br>
+<a href="javascript:changeMaps('maps/waspidome.data')" >change maps to maps/waspidome.data</a>
+<br>
 </div>
 
 </body>

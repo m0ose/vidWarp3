@@ -303,7 +303,7 @@ function glTemplate()
 	this.setUniforms = function() {
 		gl.uniformMatrix4fv( this.shaderProgram.vTextureMatrix, false, this.textureMatrix);
 		gl.uniform1f( this.shaderProgram.drawStateLoc, this.drawState);
-
+		__pickingPixels = null;
 	}
 
 
