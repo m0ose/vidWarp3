@@ -457,8 +457,8 @@ function glTemplate()
 	this.onMouseMove = function( callback)
 	{
 		this.mouseMoveCallback = callback;
-		//TODO this.canvas.onmousemove
-		document.onmousemove = function(e)
+		//document.onmousemove = function(e)
+		this.canvas.onmousemove = function(e)
 		{
 			var pxy = __BGL.pick(e.pageX, e.pageY);
 			__BGL.mouseMoveCallback(pxy);
@@ -469,7 +469,6 @@ function glTemplate()
 	this.onMouseClick = function( callback)
 	{
 		this.mouseClickCallback = callback;
-		//TODO this.canvas.onclick
 		//document.onclick = function(e)
 		this.canvas.onclick = function(e)
 		{

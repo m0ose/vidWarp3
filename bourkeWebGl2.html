@@ -115,7 +115,7 @@ function attachCanvasTest()
 {
 	__mydot.init();
 	__BGL.attachCanvas( __mydot.canvas);
-	__BGL.onMouseClick( 
+	__BGL.onMouseMove( 
 			function(e){
 				__mydot.perturbXY( e.x * __mydot.canvas.width, e.y * __mydot.canvas.height );
 			});
@@ -171,14 +171,21 @@ Images:
 <br>    
 <a href="javascript:changeImage('images/chacoPanarama.jpeg')">change image to chacoPanarama.jpeg</a>
 <br>
+<a href="javascript:changeImage('images/grid.jpg')">change to image of a grid</a>
+<br>
+<a href="javascript:changeImage('images/Polar-coordinates.gif')">change to Polar-coordinates grid</a>
+<br>
+
 Maps:<br>
-<a href="javascript:changeMaps('maps/cylindrical.data')" >change maps to cylindrical</a>
+<a href="javascript:changeMaps('maps/waspidome.data')" >change map to default</a>
 <br>
-<a href="javascript:changeMaps('maps/fisheye.data')" >change maps to fisheye</a>
+<a href="javascript:changeMaps('maps/cylindrical.data')" >change map to cylindrical</a>
 <br>
-<a href="javascript:changeMaps('maps/planar.data')" >change maps to planar</a>
+<a href="javascript:changeMaps('maps/fisheye.data')" >change map to fisheye</a>
 <br>
-<a href="javascript:changeMaps('maps/spherical.data')" >change maps to spherical</a>
+<a href="javascript:changeMaps('maps/planar.data')" >change map to planar</a>
+<br>
+<a href="javascript:changeMaps('maps/spherical.data')" >change map to spherical</a>
 <br>
 
 </div>
