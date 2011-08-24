@@ -9,10 +9,6 @@ var glShim;
 var gl = null;
 function glTemplate()
 {
-	//this.gl=null;
-	//this.shaderProgam = null;
-
-
 
 	this.vertices=[[-0.9, 1.0, 0.0], [0.9, 1.0, 0.0] , [-1.00, -1.0, 0.0],
 	               [0.88, 1.0, 0.0], [0.97, -0.97, 0.0] , [-1.03, -1.0, 0.0]];//a square
@@ -332,16 +328,16 @@ function glTemplate()
 	 */
 	var videoElement=null;
 	var texInterval = null;
+	this.videoPlaying = false;
 	this.attachVideo = function( pathName)
 	{
+		this.detachAll();
 		if(!pathName){
 			pathName = "images/BrotherCanYouSpareAJob.ogv";
 		}
 
 		if(videoElement){
-
 			videoDone();
-			//videoElement = null;
 		}
 
 		videoElement = window.document.createElement("video");
@@ -360,7 +356,7 @@ function glTemplate()
 		//videoElement.addEventListener("canplaythrough", startVideo , true);
 		videoElement.addEventListener("ended", videoDone,true); 
 		videoElement.addEventListener("canplay", startVideo,true); 
-
+		this.videoPlaying = true;
 	}
 	function updateProgress(e)
 	{
@@ -379,7 +375,7 @@ function glTemplate()
 		__BGL.postRedisplay();
 	}
 	function startVideo()
-	{
+	{	
 		console.log(" video loaded");
 		videoElement.play();
 		__BGL.texture = gl.createTexture();
@@ -387,29 +383,31 @@ function glTemplate()
 
 		updateTexture();
 		texInterval = setInterval(updateTexture, 15);
-
 	}
 	function videoDone()
 	{
-
-		videoElement.currentTime=0;
-		videoElement.pause();
-		console.log("video stop");
-		clearInterval( texInterval);
+			videoElement.currentTime=0;
+			videoElement.pause();
+			console.log("video stopping");
+			clearInterval( texInterval);
+			this.videoPlaying = false;
 	}
 
- //	-----__________----------_____________------------__________
+	//	-----__________----------_____________------------__________
 	//
 	// Attach Canvas Element
 
 	var myCanvasElement = null;
+	this.canvasOn = false;
 	this.attachCanvas = function( canvasElement)
 	{
+		this.detachAll();
 		myCanvasElement = canvasElement;
 		console.log(" attach canvas called");
 		__BGL.texture = gl.createTexture();
 		gl.bindTexture(gl.TEXTURE_2D, __BGL.texture);
 		texInterval = setInterval(updateCanvasTexture, 15);
+		this.canvasOn = true;
 	}
 	function updateCanvasTexture()
 	{
@@ -424,19 +422,28 @@ function glTemplate()
 	}
 	this.detachCanvas = function()
 	{
+		console.log( "detaching canvas");
 		clearInterval( texInterval);
+		this.canvasOn = false;
 	}
 
+	this.detachAll = function()
+	{
+		if( this.videoPlaying)
+			videoDone();
+		if( this.canvasOn)
+			this.detachCanvas();
+	}
 
 //	________________________________________________________________________
 
 //	PICKING
 
-	// usage onmouseMove( callback function)
-	//   this will pass the callback function an object with two members x and y
-	// { x:bla, y:blah}
-	// x and y are between 0 and 1 . They are texture coordinates
-	//example
+//	usage onmouseMove( callback function)
+//	this will pass the callback function an object with two members x and y
+//	{ x:bla, y:blah}
+//	x and y are between 0 and 1 . They are texture coordinates
+//	example
 	/*
 	 __BGL.onMouseMove( 
 			function(e){
@@ -453,16 +460,18 @@ function glTemplate()
 		//TODO this.canvas.onmousemove
 		document.onmousemove = function(e)
 		{
-			//console.log("mouse moved");
 			var pxy = __BGL.pick(e.pageX, e.pageY);
 			__BGL.mouseMoveCallback(pxy);
 		}
 	}
+
+
 	this.onMouseClick = function( callback)
 	{
 		this.mouseClickCallback = callback;
 		//TODO this.canvas.onclick
-		document.onclick = function(e)
+		//document.onclick = function(e)
+		this.canvas.onclick = function(e)
 		{
 			var pxy = __BGL.pick(e.pageX, e.pageY);
 			__BGL.mouseClickCallback(pxy);

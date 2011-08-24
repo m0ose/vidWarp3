@@ -2,7 +2,7 @@
 <!-- 
 Cody Smith (c) 2011
 
- -->
+-->
 
 <head>
 <title>SFX GRAPHICS cody smith</title>
@@ -108,7 +108,6 @@ function loadFile()
 }
 $.ready = loadFile;
 
-
 </script>
 <script>
 
@@ -116,7 +115,7 @@ function attachCanvasTest()
 {
 	__mydot.init();
 	__BGL.attachCanvas( __mydot.canvas);
-	__BGL.onMouseMove( 
+	__BGL.onMouseClick( 
 			function(e){
 				__mydot.perturbXY( e.x * __mydot.canvas.width, e.y * __mydot.canvas.height );
 			});
@@ -139,32 +138,49 @@ function changeMaps( pathStr)
 		__BGL.initBuffers();	 
 		__BGL.setUniforms();
 		__BGL.postRedisplay();
-		 //__BGL.webGLStart();
-		 //bindKeysAndMouse();
+
 	}
 	//open file
-	//__BGL = new glTemplate();
-	__BGL.textureImageName="images/panda2.jpg";
+	__BGL.textureImageName="images/chacoPanarama.jpeg";
 	$.get(pathStr, loadedFile );	
-
 }
-
+function changeImage(path)
+{
+	__BGL.detachAll();//stop other processes like videos or canvas
+	__BGL.textureImageName=path;
+	__BGL.initTextures();
+}
 </script>
 
 </head>
 <body bgcolor='black'>
-    <canvas id="canvas3d" style="border: none; width:100%; height:100%; left:0px; top:0px; position:absolute; z-index:-1;"></canvas>
-<div id='controls' style="z-index:+1;">
-<a href="javascript:attachVideo('images/Mario3_1111.ogv')" style="background-color:black;">attach mario video video</a>
+<canvas id="canvas3d" style="border: none; width:100%; height:100%; left:0px; top:0px; position:absolute; z-index:2;"></canvas>
+
+<div id='controls' style=" position:absolute; z-index:3; ">
+Videos:
+<br>
+<a href="javascript:attachVideo('images/Mario3_1111.ogv')" style="background-color:black;">attach mario video</a>
 <br>
 <a href="javascript:attachVideo('images/BrotherCanYouSpareAJob.ogv')" style="background-color:black;">attach political cartoon video</a>
 <br>
+Canvas:
+<br>
 <a href="javascript:attachCanvasTest()">attach canvas test</a>
-<br>     
-<a href="javascript:changeMaps('maps/xyuv.txt')" >change maps to maps/xyuv.txt</a>
+<br> 
+Images:
+<br>    
+<a href="javascript:changeImage('images/chacoPanarama.jpeg')">change image to chacoPanarama.jpeg</a>
 <br>
-<a href="javascript:changeMaps('maps/waspidome.data')" >change maps to maps/waspidome.data</a>
+Maps:<br>
+<a href="javascript:changeMaps('maps/cylindrical.data')" >change maps to cylindrical</a>
 <br>
+<a href="javascript:changeMaps('maps/fisheye.data')" >change maps to fisheye</a>
+<br>
+<a href="javascript:changeMaps('maps/planar.data')" >change maps to planar</a>
+<br>
+<a href="javascript:changeMaps('maps/spherical.data')" >change maps to spherical</a>
+<br>
+
 </div>
 
 </body>
