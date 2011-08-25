@@ -31,7 +31,7 @@ function dotzz()
 
 
 	var k = 0.01 ; //elastic rebound constant
-	var friction = 0.01;
+	var friction = 0.05;
 	var repulseForce = 10;
 	var mouseX = 0;
 	var mouseY = 0;
@@ -73,8 +73,8 @@ new bee(149, 194, 80, '#1100FF' ),  new bee(547, 191, 80, '#1100FF' ),  new bee(
 			dispY = b.y - b.hy;
 			b.dx += -1*k * dispX;//elastic return
 			b.dy += -1*k * dispY;
-			b.dx = b.dx * (1-friction*b.r);//friction
-			b.dy = b.dy * (1-friction*b.r);
+			b.dx = b.dx * (1-friction);//friction
+			b.dy = b.dy * (1-friction);
 
 			//
 			// repulsive mouse force
@@ -98,13 +98,14 @@ new bee(149, 194, 80, '#1100FF' ),  new bee(547, 191, 80, '#1100FF' ),  new bee(
 			b.y += b.dy;
 
 			//draw
-			X.strokeStyle = b.c;
 			X.beginPath();
+			X.strokeStyle = b.c;
 			X.arc(b.x,b.y, b.r + displacement / 10 , 0 , 6.3, true);
 			X.fillStyle = b.c;
 			X.fill();
 			X.stroke();
 		}
+
 	}
 
 	this.perturb = function( e)

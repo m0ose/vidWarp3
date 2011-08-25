@@ -5,7 +5,7 @@ Cody Smith (c) 2011
 -->
 
 <head>
-<title>SFX GRAPHICS cody smith</title>
+<title>SFX GRAPHICS. Video Warper. cody smith</title>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 <script id="shader-fs" type="x-shader/x-fragment">
@@ -96,7 +96,7 @@ function loadFile()
 		 __BGL.textureCoords = __BMESH.uvTriangles;
 		 __BGL.alphas = __BMESH.alphaTriangles;
 		 __BGL.webGLStart();
-		 bindKeysAndMouse();
+		 __BGL.mouseKeys = new bindKeysAndMouse();
 	}
 	//open file
 	__BGL = new glTemplate();
@@ -117,7 +117,9 @@ function attachCanvasTest()
 	__BGL.attachCanvas( __mydot.canvas);
 	__BGL.onMouseMove( 
 			function(e){
-				__mydot.perturbXY( e.x * __mydot.canvas.width, e.y * __mydot.canvas.height );
+				if( __mouseState && !__mouseState.dragging){
+					__mydot.perturbXY( e.x * __mydot.canvas.width, e.y * __mydot.canvas.height );
+				}
 			});
 }
 function attachVideo( pathStr)
@@ -156,17 +158,17 @@ function changeImage(path)
 <body bgcolor='black'>
 <canvas id="canvas3d" style="border: none; width:100%; height:100%; left:0px; top:0px; position:absolute; z-index:2;"></canvas>
 
-<div id='controls' style=" position:absolute; z-index:3; ">
+<div id='controls' style=" position:absolute; z-index:3; background-color: rgba(0,0,0,0.8); color:white ">
+<h2>Video Warper</h2>
+click and drag to move image
+<br>
 Videos:
 <br>
 <a href="javascript:attachVideo('images/Mario3_1111.ogv')" style="background-color:black;">attach mario video</a>
 <br>
 <a href="javascript:attachVideo('images/BrotherCanYouSpareAJob.ogv')" style="background-color:black;">attach political cartoon video</a>
 <br>
-Canvas:
-<br>
-<a href="javascript:attachCanvasTest()">attach canvas test</a>
-<br> 
+
 Images:
 <br>    
 <a href="javascript:changeImage('images/chacoPanarama.jpeg')">change image to chacoPanarama.jpeg</a>
@@ -187,7 +189,23 @@ Maps:<br>
 <br>
 <a href="javascript:changeMaps('maps/spherical.data')" >change map to spherical</a>
 <br>
-
+Canvas:
+<br>
+<a href="javascript:attachCanvasTest()">attach canvas test</a><font size=-1><i> buggy</i></font>
+<br> 
+<hr>
+<font size=-1>
+Final project for Ed Angels OpenGl Class.<br>
+This is an image warper written in webGl.<br>
+Paul bourke originally wrote a similar program 
+<br>
+ called <a href="http://local.wasp.uwa.edu.au/~pbourke/dataformats/meshwarp/">
+meshwarp </a>.
+ <br>
+ This takes maps in his format.
+ <br>
+ <a href="https://github.com/m0ose/vidWarp3">github repository</a>
+</font>
 </div>
 
 </body>
