@@ -343,6 +343,7 @@ function glTemplate()
 		videoElement = window.document.createElement("video");
 		videoElement.control="controls";
 		videoElement.style="display:none;";
+		videoElement.loop = true;
 		//videoElement.oncanplaythrough = startVideo;
 		videoElement.onended = videoDone;
 		videoElement.id="_video";
