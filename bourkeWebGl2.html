@@ -152,13 +152,44 @@ function changeImage(path)
 	__BGL.textureImageName=path;
 	__BGL.initTextures();
 }
+
+var _controls_hidden = false;
+function hideControls( hide )
+{
+	
+	var cts = document.getElementById('controls');
+	if( cts ){
+		if(hide){
+			console.log("controls found, hiding");
+			cts.style.visibility = "hidden";
+		}
+		else
+		{
+			console.log("controls found, hiding");
+			cts.style.visibility = "visible";
+		}
+		var mxm = document.getElementById("_maximizer");
+		var icon = "<<";
+		if(hide)
+			icon = ">>";
+		if(mxm)
+			mxm.innerHTML = "<a href='javascript:hideControls(" + !hide + ")'> " + icon + " </a>";
+	}
+	else
+		console.log("controls not found ? ");
+}
 </script>
 
 </head>
 <body bgcolor='black'>
 <canvas id="canvas3d" style="border: none; width:100%; height:100%; left:0px; top:0px; position:absolute; z-index:2;"></canvas>
+<div id="_maximizer" style=" position:absolute; z-index:3 ; top:10px; width:30px ;height:20px; background-color: rgb(255,255,255); color:black"> 
+<a href="javascript:hideControls(true)"> << </a>  
+</div>
 
-<div id='controls' style=" position:absolute; z-index:3; background-color: rgba(0,0,0,0.8); color:white ">
+<div id='controls' style=" position:absolute; top:30px; z-index:2; background-color: rgba(0,0,0,0.8); color:white ">
+
+<div id="controlPane">
 <h2>Video Warper</h2>
 click and drag to move image
 <br>
@@ -206,6 +237,7 @@ meshwarp </a>.
  <br>
  <a href="https://github.com/m0ose/vidWarp3">github repository</a>
 </font>
+</div>
 </div>
 
 </body>
